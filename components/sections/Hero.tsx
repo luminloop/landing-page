@@ -1,7 +1,7 @@
 "use client";
 
-import { useRef, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
+import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
@@ -25,22 +25,11 @@ const trustLogos = [
 ];
 
 // ─── Component ──────────────────────────────────────────────────
-function formatDuration(seconds: number) {
-  const m = Math.floor(seconds / 60);
-  const s = Math.floor(seconds % 60);
-  return `${m}:${s.toString().padStart(2, "0")}`;
-}
-
 export default function Hero() {
-  const demoRef = useRef<HTMLVideoElement>(null);
   const [demoPlaying, setDemoPlaying] = useState(false);
-  const [demoDuration, setDemoDuration] = useState("");
 
   const handleDemoPlay = () => {
-    if (demoRef.current) {
-      demoRef.current.play();
-      setDemoPlaying(true);
-    }
+    setDemoPlaying(true);
   };
 
   return (
@@ -146,58 +135,54 @@ export default function Hero() {
           </motion.div>
         </div>
 
-        {/* ── Product demo video ────────────────────────── */}
+        {/* ── Product demo video (YouTube) ──────────────── */}
         <motion.div
           {...fadeUp(0.45)}
           className="relative mx-auto mt-16 w-full max-w-[700px]"
         >
-          <div className="overflow-hidden rounded-xl border border-gray-200 shadow-sm">
-            <video
-              ref={demoRef}
-              className="aspect-video w-full object-cover"
-              src="https://cdn.pixabay.com/video/2020/05/25/40130-424930032_large.mp4"
-              controls={demoPlaying}
-              muted
-              playsInline
-              preload="none"
-              onLoadedMetadata={() => {
-                if (demoRef.current) {
-                  setDemoDuration(formatDuration(demoRef.current.duration));
-                }
-              }}
-              onEnded={() => setDemoPlaying(false)}
-            />
-          </div>
+          <div className="relative overflow-hidden rounded-xl border border-gray-200 shadow-sm">
+            {demoPlaying ? (
+              <iframe
+                className="aspect-video w-full"
+                src="https://www.youtube.com/embed/ZK-rNEhJIDs?autoplay=1&rel=0"
+                title="Lemin Loop product demo"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+            ) : (
+              <>
+                {/* YouTube thumbnail facade */}
+                <Image
+                  src="https://img.youtube.com/vi/ZK-rNEhJIDs/maxresdefault.jpg"
+                  alt="Lemin Loop product demo thumbnail"
+                  width={1280}
+                  height={720}
+                  className="aspect-video w-full object-cover"
+                  priority={false}
+                />
 
-          {/* Play demo pill — centered overlay */}
-          <AnimatePresence>
-            {!demoPlaying && (
-              <motion.button
-                initial={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.25 }}
-                onClick={handleDemoPlay}
-                aria-label="Play demo video"
-                className="absolute inset-0 z-10 flex cursor-pointer items-center justify-center"
-              >
-                <span className="inline-flex items-center gap-2.5 rounded-full border border-gray-200 bg-white px-4 py-2.5 shadow-lg transition-transform hover:scale-105">
-                  <span className="flex size-8 items-center justify-center rounded-full bg-[#3b82f6]">
-                    <svg
-                      className="ml-0.5 size-3.5 text-white"
-                      fill="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path d="M8 5v14l11-7z" />
-                    </svg>
+                {/* Play demo pill — centered overlay */}
+                <button
+                  onClick={handleDemoPlay}
+                  aria-label="Play demo video"
+                  className="absolute inset-0 z-10 flex cursor-pointer items-center justify-center"
+                >
+                  <span className="inline-flex items-center gap-2.5 rounded-full border border-gray-200 bg-white px-4 py-2.5 shadow-lg transition-transform hover:scale-105">
+                    <span className="flex size-8 items-center justify-center rounded-full bg-[#3b82f6]">
+                      <svg
+                        className="ml-0.5 size-3.5 text-white"
+                        fill="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path d="M8 5v14l11-7z" />
+                      </svg>
+                    </span>
+                    <span className="text-sm font-medium text-[#111111]">Play demo</span>
                   </span>
-                  <span className="text-sm font-medium text-[#111111]">Play demo</span>
-                  {demoDuration && (
-                    <span className="text-sm text-gray-400">/ {demoDuration}</span>
-                  )}
-                </span>
-              </motion.button>
+                </button>
+              </>
             )}
-          </AnimatePresence>
+          </div>
         </motion.div>
       </div>
     </section>
