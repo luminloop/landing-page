@@ -1,65 +1,122 @@
-import Image from "next/image";
+import Navbar from "@/components/sections/Navbar";
+import Hero from "@/components/sections/Hero";
+import IntroTrust from "@/components/sections/IntroTrust";
+import WhyUs from "@/components/sections/WhyUs";
+import Features from "@/components/sections/Features";
+import Testimonials from "@/components/sections/Testimonials";
+import FAQ from "@/components/sections/FAQ";
+import FinalCTA from "@/components/sections/FinalCTA";
+import Footer from "@/components/sections/Footer";
+import { siteConfig } from "@/lib/tokens";
+
+/* ── JSON-LD Structured Data ──────────────────────────────────── */
+const organizationJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: siteConfig.name,
+  url: siteConfig.url,
+  applicationCategory: "BusinessApplication",
+  operatingSystem: "Web",
+  description: siteConfig.description,
+  offers: {
+    "@type": "Offer",
+    category: "School Management ERP",
+  },
+};
+
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "How is Lemin Loop different from a generic ERP?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "It was designed from the ground up for how schools operate — not adapted from an HR or finance system. Every module reflects real school workflows.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Can it handle multiple campuses or branches?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Yes. Lemin Loop supports multi-site institutions with separate configurations per campus and a unified admin view.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "How long does implementation take?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Most schools are fully live within 4–8 weeks depending on the number of modules and data migration complexity.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Do we need an IT team to manage it?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "No. The system is designed for administrators to configure and manage without technical support for day-to-day operations.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Is our data secure and private?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Completely. You can choose self-hosted or cloud deployment. Your institution owns all its data with full export rights.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Does it work on mobile?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Yes. There's a mobile-friendly interface for teachers, parents, and students to access key functions on the go.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "What kind of support is included?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "All clients receive onboarding, training, and ongoing support. We're a partner in your deployment, not just a vendor.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Can it integrate with our existing tools?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Lemin Loop supports integration with common accounting systems, biometric devices, and third-party APIs.",
+      },
+    },
+  ],
+};
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
+      <Navbar />
+      <main>
+        <Hero />
+        <IntroTrust />
+        <WhyUs />
+        <Features />
+        <Testimonials />
+        <FAQ />
+        <FinalCTA />
       </main>
-    </div>
+      <Footer />
+    </>
   );
 }
