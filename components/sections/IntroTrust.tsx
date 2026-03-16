@@ -16,16 +16,16 @@ export default function IntroTrust() {
   return (
     <section className="bg-white pb-18 pt-8">
       <div className="mx-auto max-w-[750px] px-6">
+        {/* Trust label */}
+        <p className="mt-10 text-sm font-semibold text-[#111111]">
+          Trusted by schools of all sizes
+        </p>
+
         {/* Intro paragraph */}
         <p className="text-base leading-relaxed text-gray-700">
           {siteConfig.name} is a modern, configurable school management system
           built for administrators who need clarity, and IT teams who need
           control. Designed for institutions of any size.
-        </p>
-
-        {/* Trust label */}
-        <p className="mt-10 text-sm font-semibold text-[#111111]">
-          Trusted by schools of all sizes
         </p>
 
         {/* Logo grid */}
